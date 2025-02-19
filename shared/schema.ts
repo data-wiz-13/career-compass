@@ -28,8 +28,8 @@ export type Assessment = typeof assessments.$inferSelect;
 export type InsertAssessment = z.infer<typeof insertAssessmentSchema>;
 
 export const assessmentFormSchema = z.object({
-  skills: z.array(z.string()).min(1, "Select at least one skill"),
-  interests: z.array(z.string()).min(1, "Select at least one interest"),
+  skills: z.array(z.string()),  
+  interests: z.array(z.string()).min(1, "Select at least one interest"), 
   academicPerformance: z.enum(["excellent", "good", "average", "poor"]),
 });
 
