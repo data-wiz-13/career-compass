@@ -42,3 +42,21 @@ next-env.d.ts
 .upm
 .breakpoints
 replit.nix
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
