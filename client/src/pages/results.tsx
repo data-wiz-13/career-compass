@@ -4,6 +4,12 @@ import { Recommendations } from "@/components/recommendations";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Assessment } from "@shared/schema";
 
+interface CareerResults {
+  careers: Array<{ title: string; confidence: number }>;
+  courses: string[];
+  explanation: string;
+}
+
 export default function Results({ params }: { params: { id: string } }) {
   const { data, isLoading } = useQuery<Assessment>({
     queryKey: [`/api/assessment/${params.id}`],
@@ -24,6 +30,8 @@ export default function Results({ params }: { params: { id: string } }) {
     );
   }
 
+  const results = data.results as CareerResults;
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -34,9 +42,9 @@ export default function Results({ params }: { params: { id: string } }) {
           </p>
         </div>
 
-        <CareerModel careers={data.results.careers} />
+        <CareerModel careers={results.careers} />
 
-        <Recommendations {...data.results} />
+        <Recommendations {...results} />
       </div>
     </div>
   );

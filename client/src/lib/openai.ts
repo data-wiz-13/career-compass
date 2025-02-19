@@ -16,14 +16,14 @@ export async function getCareerRecommendations(assessment: {
     Skills: ${assessment.skills.join(", ")}
     Interests: ${assessment.interests.join(", ")}
     Academic Performance: ${assessment.academicPerformance}
-    
+
     Provide recommendations in this JSON format:
     {
       "careers": [{ "title": string, "confidence": number }],
       "courses": string[],
       "explanation": string
     }
-    
+
     The confidence should be between 0 and 1.`;
 
   const response = await openai.chat.completions.create({
@@ -32,5 +32,9 @@ export async function getCareerRecommendations(assessment: {
     response_format: { type: "json_object" },
   });
 
-  return JSON.parse(response.choices[0].message.content);
+  const content = response.choices[0].message?.content;
+  if (!content) {
+    throw new Error("No content returned from OpenAI");
+  }
+  return JSON.parse(content);
 }
